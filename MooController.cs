@@ -1,6 +1,6 @@
 ﻿namespace Smells;
 
-public class Controller
+public class MooController
 {
     public bool roundOn = true;
     public bool gameOn = true;
@@ -10,7 +10,7 @@ public class Controller
     private IPlayer player;
     private IMooGame mooGame;
 
-    public Controller(IPlayer player, IUserInterface ui, IMooGame moo)
+    public MooController(IPlayer player, IUserInterface ui, IMooGame moo)
     {
         this.player = player;
         this.ui = ui;
