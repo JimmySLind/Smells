@@ -1,6 +1,4 @@
-﻿using Smells.Undone;
-
-namespace Smells
+﻿namespace Smells
 {
     public class PlayerController
     {
