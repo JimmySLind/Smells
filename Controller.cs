@@ -1,16 +1,16 @@
 ﻿namespace Smells;
 
-public class PlayerController
+public class Controller
 {
     public bool roundOn = true;
     public bool gameOn = true;
     public string input;
 
     private IUserInterface ui;
-    private Player player;
-    private MooGame mooGame;
+    private IPlayer player;
+    private IMooGame mooGame;
 
-    public PlayerController(Player player, IUserInterface ui, MooGame moo)
+    public Controller(IPlayer player, IUserInterface ui, IMooGame moo)
     {
         this.player = player;
         this.ui = ui;
@@ -47,7 +47,7 @@ public class PlayerController
 
             if (goal == input)
             {
-                this.mooGame.SaveScore(player.Name, player.NrOfGuesses);
+                this.player.SaveScore(player.Name, player.NrOfGuesses);
                 this.mooGame.showTopList();
                 roundOn = false;
             }

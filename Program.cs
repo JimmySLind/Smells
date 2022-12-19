@@ -2,6 +2,6 @@
 Player player = new Player();
 MooGame mooGame = new MooGame(player);
 
-PlayerController play = new PlayerController(player, ui, mooGame);
+Controller play = new Controller(player, ui, mooGame);
 
 play.Run();

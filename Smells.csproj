@@ -13,9 +13,4 @@
     <PackageReference Include="MSTest.TestFramework" Version="3.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="DbAccess\" />
-  </ItemGroup>
-
 </Project>

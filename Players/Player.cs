@@ -1,6 +1,6 @@
-﻿namespace Smells.Models;
+﻿namespace Smells.Players;
 
-public class Player
+public class Player : IPlayer
 {
     public string Name { get; set; }
     public int NrOfGames { get; set; }
@@ -28,6 +28,12 @@ public class Player
         return (double)NrOfGuesses / NrOfGames;
     }
 
+    public void SaveScore(string name, int nrOfGuesses)
+    {
+        StreamWriter output = new StreamWriter("result.txt", append: true);
+        output.WriteLine(name + "#&#" + nrOfGuesses);
+        output.Close();
+    }
 
     public override bool Equals(object player)
     {
