@@ -1,4 +1,4 @@
-﻿namespace Smells;
+﻿namespace Smells.Controllers;
 
 public class MooController
 {
@@ -14,7 +14,7 @@ public class MooController
     {
         this.player = player;
         this.ui = ui;
-        this.mooGame = moo;
+        mooGame = moo;
     }
 
     public void Run()
@@ -24,7 +24,7 @@ public class MooController
 
         do
         {
-            var goal = this.mooGame.CreateRandomNumber();
+            var goal = mooGame.CreateRandomNumber();
             Display();
             WhilePlaying(goal);
             Continue(player.NrOfGuesses);
@@ -43,12 +43,12 @@ public class MooController
         do
         {
             input = ui.GetString();
-            ui.PutString(this.mooGame.CheckScoreString(goal, input));
+            ui.PutString(mooGame.CheckScoreString(goal, input));
 
             if (goal == input)
             {
-                this.player.SaveScore(player.Name, player.NrOfGuesses);
-                this.mooGame.showTopList();
+                player.SaveScore(player.Name, player.NrOfGuesses);
+                mooGame.showTopList();
                 roundOn = false;
             }
 
