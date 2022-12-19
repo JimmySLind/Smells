@@ -1,13 +1,16 @@
-﻿namespace Smells
+﻿using Smells.Undone;
+
+namespace Smells
 {
     public class PlayerController
     {
+        public bool roundOn = true;
+        public bool gameOn = true;
+        public string input;
+
         private IUserInterface ui;
         private Player player;
         private MooGame mooGame;
-        private string input;
-        private bool roundOn = true;
-        private bool gameOn = true;
 
         public PlayerController(Player player, IUserInterface ui, MooGame moo)
         {
@@ -24,7 +27,6 @@
             do
             {
                 var goal = this.mooGame.CreateRandomNumber();
-
                 Display();
                 WhilePlaying(goal);
                 Continue(player.NrOfGuesses);
@@ -56,14 +58,14 @@
         }
 
         public bool Continue(int guesses)
-        {
+         {
             ui.PutString(mooGame.ContinueString(guesses));
 
             input = ui.GetString();
 
             if (input != null && input != "" && input.Substring(0, 1) == "n")
             {
-                ui.Exit();
+                return gameOn = false;
             }
 
             player.NrOfGuesses = 0;

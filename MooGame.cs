@@ -2,8 +2,9 @@
 {
     public class MooGame
     {
+        private IUserInterface ui;
+        private Player player;
         public string Number { get; set; }
-        Player player;
 
         public MooGame(Player player)
         {
@@ -42,7 +43,7 @@
         public void showTopList()
         {
             StreamReader input = new StreamReader("result.txt");
-            List<Player> results = new List<Player>();
+            List<Player> results = new List<Player>(); 
             string line;
 
             while ((line = input.ReadLine()) != null)
@@ -62,8 +63,6 @@
                 {
                     results[pos].UpdateScore(guesses);
                 }
-
-
             }
 
             results.Sort((p1, p2) => p1.AverageScore().CompareTo(p2.AverageScore()));
@@ -102,13 +101,14 @@
                     }
                 }
             }
+
             return $"{"BBBB".Substring(0, bulls)},{"CCCC".Substring(0, cows)}\n";
         }
 
 
         public string NewGameString()
         {
-            return $"New game:\n";
+            return "New game:\n";
         }
 
         public string PracticeString()
