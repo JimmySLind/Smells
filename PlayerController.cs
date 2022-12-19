@@ -1,74 +1,73 @@
-﻿namespace Smells
+﻿namespace Smells;
+
+public class PlayerController
 {
-    public class PlayerController
+    public bool roundOn = true;
+    public bool gameOn = true;
+    public string input;
+
+    private IUserInterface ui;
+    private Player player;
+    private MooGame mooGame;
+
+    public PlayerController(Player player, IUserInterface ui, MooGame moo)
     {
-        public bool roundOn = true;
-        public bool gameOn = true;
-        public string input;
+        this.player = player;
+        this.ui = ui;
+        this.mooGame = moo;
+    }
 
-        private IUserInterface ui;
-        private Player player;
-        private MooGame mooGame;
+    public void Run()
+    {
+        ui.PutString(player.NameString());
+        player.Name = ui.GetString();
 
-        public PlayerController(Player player, IUserInterface ui, MooGame moo)
+        do
         {
-            this.player = player;
-            this.ui = ui;
-            this.mooGame = moo;
-        }
+            var goal = this.mooGame.CreateRandomNumber();
+            Display();
+            WhilePlaying(goal);
+            Continue(player.NrOfGuesses);
 
-        public void Run()
+        } while (gameOn);
+    }
+
+    private void Display()
+    {
+        ui.PutString(mooGame.NewGameString());
+        ui.PutString(mooGame.PracticeString());
+    }
+
+    public void WhilePlaying(string goal)
+    {
+        do
         {
-            ui.PutString(player.NameString());
-            player.Name = ui.GetString();
-
-            do
-            {
-                var goal = this.mooGame.CreateRandomNumber();
-                Display();
-                WhilePlaying(goal);
-                Continue(player.NrOfGuesses);
-
-            } while (gameOn);
-        }
-
-        private void Display()
-        {
-            ui.PutString(mooGame.NewGameString());
-            ui.PutString(mooGame.PracticeString());
-        }
-
-        public void WhilePlaying(string goal)
-        {
-            do
-            {
-                input = ui.GetString();
-                ui.PutString(this.mooGame.CheckScoreString(goal, input));
-
-                if (goal == input)
-                {
-                    this.mooGame.SaveScore(player.Name, player.NrOfGuesses);
-                    this.mooGame.showTopList();
-                    roundOn = false;
-                }
-
-            } while (roundOn);
-        }
-
-        public bool Continue(int guesses)
-         {
-            ui.PutString(mooGame.ContinueString(guesses));
-
             input = ui.GetString();
+            ui.PutString(this.mooGame.CheckScoreString(goal, input));
 
-            if (input != null && input != "" && input.Substring(0, 1) == "n")
+            if (goal == input)
             {
-                return gameOn = false;
+                this.mooGame.SaveScore(player.Name, player.NrOfGuesses);
+                this.mooGame.showTopList();
+                roundOn = false;
             }
 
-            player.NrOfGuesses = 0;
+        } while (roundOn);
+    }
 
-            return gameOn;
+    public bool Continue(int guesses)
+    {
+        ui.PutString(mooGame.ContinueString(guesses));
+
+        input = ui.GetString();
+
+        if (input != null && input != "" && input.Substring(0, 1) == "n")
+        {
+            return gameOn = false;
         }
+
+        player.NrOfGuesses = 0;
+
+        return gameOn;
     }
 }
