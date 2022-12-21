@@ -1,10 +1,12 @@
-﻿namespace Smells.Controllers;
+﻿
+namespace Smells.Controllers;
 
 public class MooController
 {
-    public bool roundOn = true;
     public bool gameOn = true;
+    public bool roundOn;
     public string input;
+    private string goal;
 
     private IUserInterface ui;
     private IPlayer player;
@@ -24,7 +26,7 @@ public class MooController
 
         do
         {
-            var goal = mooGame.CreateRandomNumber();
+            goal = mooGame.CreateRandomNumber();
             Display();
             WhilePlaying(goal);
             Continue(player.NrOfGuesses);
@@ -42,6 +44,7 @@ public class MooController
     {
         do
         {
+            roundOn = true;
             input = ui.GetString();
             ui.PutString(mooGame.CheckScoreString(goal, input));
 
